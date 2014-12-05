@@ -1,0 +1,64 @@
+{# index.html #}
+{% extends "member_base.html" %}
+
+{% block main %}
+<nav id="coursebar">
+	<ul class="wrapper">
+		<li><strong>{{ course.section_type|e }}</strong> Course Type</li>
+		<li><strong>{{ course.code|e }}</strong> Campus Code</li>
+		<li><strong>{{ course.credits|e }}</strong> Credits</li>
+		<div class="right">
+			<li><strong>{{ course.crnumber|e }}</strong> <span class="help" title="This is the number you use to register for courses using UVM's course registration system">CRN</span></li>
+			<li><a class="download-c" href="{{ url_for('download_course', crnumber=course.crnumber) }}"><span class="help" title="Download your worksheet as a .csv file which can be opened in Microsoft Excel">Download .csv</span></a></li>
+			<li><span class="plus">Add to Worksheet</span></li>
+			<li><a href="#worksheet" class="show-ws" rel="modal:open">Show Worksheet</a></li>
+		</div><!--.right-->
+	</ul>
+</nav><!--#coursebar-->
+
+<div id="courseContents" class="wrapper">
+	<h2 class="title">{{ course.title|e }}</h2>
+	<span class="meta_title">{{ course.subject|e }} {{ course.course_num|e }} - {{ course.section|e }}</span><!--.meta_title-->
+	
+	<ul class="course_meta">
+		<li class="course_info">Course Information</li><!--.course_info-->
+		<li><strong>Instructor</strong> {{ course.instructor|e }}</li>
+		<li>
+			<strong>Days/Time</strong>
+			{{ course.start_time|e }}
+			{% if course.end_time != '' %}
+		 		- {{ course.end_time|e }} | 
+		 	{% endif %}
+		 	{{ course.days|e }}
+		</li>
+		<li><strong>Location</strong> {{ course.building|e }} {{ course.room|e }}</li>
+		
+	</ul><!--.course_meta-->
+	
+	<div class="right">
+		<ul class="enrollment">
+			{% set frac_enroll = (course.current_enroll/course.max_enroll)*100 %}
+			<li style="width:{{ frac_enroll }}%" class="help" title="Currently Enrolled (out of {{ course.max_enroll|e }})">{{ course.current_enroll|e }}</li>
+			<li style="width:{{ 100 - frac_enroll }}%" class="help" title="Seats Left (out of {{ course.max_enroll|e }})">{{ course.max_enroll - course.current_enroll }}</li>
+		</ul><!--.enrollment-->
+		
+		<div class="course_single_description">
+			<p>
+				{% if course.description == " " or course.description == "" %}
+					{% set this_description = "There is no description available for this course." %}
+				{% else %}
+					{% set this_description = course.description %}
+				{% endif %}
+				
+				{{ this_description|e }}
+			</p>
+		</div><!--course_single_description-->
+	</div><!--.right-->
+</div><!--#courseContents-->
+
+<ul id="worksheet">
+	{% include 'worksheet_popup.html' %}
+</ul><!--#worksheet-->
+
+
+{% endblock %}

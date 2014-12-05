@@ -1,0 +1,10 @@
+{# 403.html #}
+{% extends "/error_pages/error_base.html" %}
+{% block main %}
+
+<div class="centered">
+	<h1 id="error">403</h1>
+	<blockquote><strong>Hold Up</strong><br/> You can't be here.</blockquote>
+	<a class="button" href="{{ url_for('index') }}">Take me home</a><!--.button-->
+</div><!--.centered-->
+{% endblock %}

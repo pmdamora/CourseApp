@@ -1,0 +1,9 @@
+{# 500.html #}
+{% extends "/error_pages/error_base.html" %}
+{% block main %}
+<div class="centered">
+	<h1 id="error">500</h1>
+	<blockquote>Whoops, something broke. We're on it!</blockquote>
+	<a class="button" href="{{ url_for('index') }}">Take me home</a><!--.button-->
+</div><!--.centered-->
+{% endblock %}

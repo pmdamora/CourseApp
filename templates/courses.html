@@ -1,0 +1,35 @@
+{# courses.html #}
+{% for c in course.items %}
+	{% if c.description == " " or c.description == "" %}
+		{% set this_description = "There is no description available for this course." %}
+	{% else %}
+		{% set this_description = c.description %}
+	{% endif %}
+<tr>
+	<td class="addto">
+		{% if ws %}
+			{% if c.crnumber in ws  %}
+				<span class="minus" name="{{ c.crnumber|e }}"></span>
+			{% else %}
+				<span class="plus" name="{{ c.crnumber|e }}"></span>
+			{% endif %}
+		{% else %}
+			<span class="plus" name="{{ c.crnumber|e }}"></span>
+		{% endif %}
+	</td>
+	<td name="{{ c.subject|e }}">{{ c.subject|e }}</td>
+	<td>{{ c.course_num|e }}</td>
+	<td>{{ c.section|e }}</td>
+	<td><a class="tooltip" target="_blank" title="{{ this_description|e }}" href="{{ url_for('courses', crnumber=c.crnumber) }}">{{ c.title|e }}</a></td>
+	<td>
+		{{ c.days|e }} 
+		{{ c.start_time|e }}
+		{% if c.end_time != '' %}
+		 	- {{ c.end_time|e }} 
+		{% endif %}
+			</td>
+	<td>{{ c.credits|e }}</td>
+	<!--<td class="facebooknum"><span class="fb">125</span></td>-->
+	<td>{{ c.instructor|e }}</td>
+</tr>
+{% endfor %}

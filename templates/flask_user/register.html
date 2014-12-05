@@ -1,0 +1,60 @@
+{# register.html #}
+{% extends "base.html" %}
+
+{% block content %}
+{% from "flask_user/_macros.html" import render_field, render_submit_field %}
+<body>
+	<div class="centered">
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+				<ul class=flashes>
+    				{% for message in messages %}
+    					<li>{{ message }}</li>
+    				{% endfor %}
+    			</ul>
+    		{% endif %}
+    	{% endwith %}
+		{% block main %}{% endblock %}
+
+		<h1>Course<span class="red">App</span> | Register</h1>
+		
+		<form action="" method="POST" novalidate formnovalidate class="form" role="form">
+		    {{ form.hidden_tag() }}
+			
+			{{ render_field(form.first_name, tabindex=30) }}
+			
+		    {# Username or Email #}
+		    {% set field = form.username if user_manager.enable_username else form.email %}
+		    <div class="form-group {% if field.errors %}has-error{% endif %}">
+		        {# Label on left, "Already registered? Sign in." on right #}
+		        <label for="{{ field.id }}" class="control-label">{{ field.label.text }}</label>
+		        {{ field(class_='form-control', tabindex=210) }}
+		        {% if field.errors %}
+		            {% for e in field.errors %}
+		                <p class="help-block">{{ e }}</p>
+		            {% endfor %}
+		        {% endif %}
+		    </div>
+		    
+		    {% if user_manager.enable_email and user_manager.enable_username %}
+		        {{ render_field(form.email, tabindex=220) }}
+		    {% endif %}
+			
+		    {{ render_field(form.password, tabindex=230) }}
+		
+		    {% if user_manager.enable_retype_password %}
+		        {{ render_field(form.retype_password, tabindex=240) }}
+		    {% endif %}
+		
+		    {{ render_submit_field(form.submit, tabindex=280) }}
+		</form>
+	</div><!--.centered-->
+	
+	<ul id="form_meta">
+		{% if user_manager.enable_register %}
+			<li>Already registered? <a href="{{ url_for('user.login') }}" tabindex='290'>Sign in &#10142;</a></li>
+		{% endif %}
+		<li><a href="{{ url_for('about') }}">Learn more</a>
+	</ul>
+</body>
+{% endblock %}

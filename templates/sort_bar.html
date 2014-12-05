@@ -1,0 +1,122 @@
+{# sort_bar.html #}
+<nav id="sort">
+	<ul class="wrapper">
+		<li>
+			<a href="#" data-dropdown="#dropdown-1">Subjects &#9662;</a>
+			<div id="dropdown-1" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					<li class="nohover">
+						<input type="text" name="dropsearch" id="dropsearch" placeholder="Search">
+						<a class="x"></a>
+					</li>
+					<li>
+						<span>ALL</span>
+						<div class="checkbox1">
+							<input type="checkbox" name="subject" id="ALL" value="ALL" checked>
+							<label for="ALL"></label>
+						</div>
+					</li>
+					<li>
+						<span>NONE</span>
+						<div class="checkbox1">
+							<input type="checkbox" name="subject" id="NONE" value="NONE">
+							<label for="NONE"></label>
+						</div>
+					</li>
+					{% for item in course_list|dictsort(false, 'value') %}
+						<li>
+							<span>{{ item[1]|e }} ({{ item[0]|e }})</span>
+							<div class="checkbox1">
+								<input type="checkbox" name="subject" id="{{ item[0]|e }}" value="{{ item[0]|e }}">
+								<label for="{{ item[0]|e }}"></label>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		
+		<li>
+			<a href="#" data-dropdown="#dropdown-2">Levels &#9662;</a>
+			<div id="dropdown-2" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					{% for name,item in [("Beginner","0-99"),("Intermediate","100-199"),("Advanced","200-299"),("Graduate","300+")] %}
+						<li>
+							{{ name|e }} ({{ item|e }})
+							<div class="checkbox1">
+								<input type="checkbox" name="level" id="{{ item|e }}" value="{{ item|e }}" checked>
+								<label for="{{ item|e }}"></label>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		<li>
+			<a href="#" data-dropdown="#dropdown-3">Days &#9662;</a>
+			<div id="dropdown-3" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					{% for day,letter in [("Monday","M"),("Tuesday","T"),("Wednesday","W"),("Thursday","R"),("Friday","F"),("Saturday","S"),("Sunday","U")] %}
+						<li>
+							{{ day|e }} ({{ letter|e }})
+							<div class="checkbox1">
+								<input type="checkbox" name="day" id="{{ letter|e }}" value="{{ letter|e }}" checked>
+								<label for="{{ letter|e }}"></label>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</li>
+		<!--<li>
+			<a href="#" data-dropdown="#dropdown-4">Times &#9662;</a>
+			<div id="dropdown-4" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					<li></li>
+				</ul>
+			</div>
+		</li>-->
+		<li>
+			<a href="#" data-dropdown="#dropdown-5">Credits &#9662;</a>
+			<div id="dropdown-5" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					<li class="nohover">
+						<div class="slider"></div>
+					</li>
+				</ul>
+			</div>
+		</li>
+		<li>
+			<a href="#" data-dropdown="#dropdown-6">Miscellaneous &#9662;</a>
+			<div id="dropdown-6" class="dropdown dropdown-tip">
+				<ul class="dropdown-menu">
+					<li>
+						Only D1 Courses
+						<div class="checkbox1">
+							<input type="checkbox" name="misc" id="D1" value="D1">
+							<label for="D1"></label>
+						</div>
+					</li>
+					<li>
+						Only D2 Courses
+						<div class="checkbox1">
+							<input type="checkbox" name="misc" id="D2" value="D2">
+							<label for="D2"></label>
+						</div>
+					</li>
+					<li>
+						Only Courses with Available Seats
+						<div class="checkbox1">
+							<input type="checkbox" name="misc" id="open" value="open">
+							<label for="open"></label>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</li>
+		
+		<div class="right">
+			<li><a href="#worksheet" class="show-ws" rel="modal:open">Show Worksheet</a></li>
+		</div>
+	</div><!--.wrapper-->
+</nav><!--#sort-->

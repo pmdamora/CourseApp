@@ -1,0 +1,9 @@
+{# 410.html #}
+{% extends "/error_pages/error_base.html" %}
+{% block main %}
+<div class="centered">
+	<h1 id="error">410</h1>
+	<blockquote>You can't get lost if you don't know where you're going.</blockquote>
+	<a class="button" href="{{ url_for('index') }}">Take me home</a><!--.button-->
+</div><!--.centered-->
+{% endblock %}

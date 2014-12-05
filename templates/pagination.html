@@ -1,0 +1,14 @@
+{# pagination.html #}
+
+
+{%- for page in course.iter_pages() %}
+	{% if page %}
+		{% if page != course.page %}
+			<a href="#" page_location="{{ page }}">{{ page }}</a>
+		{% else %}
+			<strong>{{ page }}</strong>
+		{% endif %}
+	{% else %}
+	 	 <span class=ellipsis>…</span>
+	{% endif %}
+{%- endfor %}

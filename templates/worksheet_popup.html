@@ -1,0 +1,15 @@
+<li><h2>My Worksheet</h2></li>
+{% for w in worksheet %}
+	<li>
+		<span class="minus" name="{{ w.crnumber|e }}"></span>
+		<a target="_blank" href="{{ url_for('courses', crnumber=w.crnumber) }}">{{ w.subject|e }} {{ w.course_num|e }} <div class="right"><span class="help" title="This is the number you use to register for courses using UVM's course registration system">{{ w.crnumber|e }}</span> ({{ w.credits|e }} credits)</div></a>
+	</li>
+{% endfor %}
+
+<li class="bottom">
+	<a class="plus" href="{{ url_for('download_worksheet') }}"><span class="help" title="Download your worksheet as a .csv file which can be opened in Microsoft Excel">Download .csv</span></a>
+	<!--<a class="plus" href="{{ url_for('full_worksheet') }}">View Full</a>-->
+	<div class="right"><strong>{{ total_credits|e }}</strong> Credits</div><!--.right-->
+</li>
+	
+

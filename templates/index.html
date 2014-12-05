@@ -1,0 +1,40 @@
+{# index.html #}
+{% extends "member_base.html" %}
+
+{% block main %}
+{% include 'sort_bar.html' %}
+   <span id=result></span>
+{% if query %}
+	<h2 class="title">Search Results for "{{ query|e }}"</h2>
+{% endif %}
+<div id="courseContents">
+	<table>
+		<thead>
+			<tr>
+				<th class="tip"><span class="help" title="Save this course to your worksheet">WS</span></th>
+				<th>Subj</th>
+				<th>Num</th>
+				<th>Sec</th>
+				<th>Name</th>
+				<th>Times</th>
+				<th>Cred</th>
+				<!--<th class="tip"><span class="help" title="Number of Facebook friends interested in this course"># FB</span></th>-->
+				<th>Professor</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% include 'courses.html' %}
+		</tbody>
+	</table>
+	
+	<div class="pagination wrapper">
+	{% include 'pagination.html' %}
+	</div><!--.pagination-->
+
+</div><!--#courseContents-->
+
+<ul id="worksheet">
+	{% include 'worksheet_popup.html' %}
+</ul><!--#worksheet-->
+
+{% endblock %}
